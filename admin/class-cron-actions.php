@@ -1,13 +1,13 @@
 <?php
 defined('ABSPATH') or die();
 
-if( ! class_exists('BreakingNewsCron') ){
+if( ! class_exists('SomeClassCron') ){
 
 	/**
-	 * Class BreakingNewsCron
+	 * Class SomeClassCron
 	 * @desc Class is responsible for background actions which are assigned via Wordpress Cron API
 	 */
-	class BreakingNewsCron {
+	class SomeClassCron {
 
 		public function __construct(){
 
@@ -30,7 +30,7 @@ if( ! class_exists('BreakingNewsCron') ){
 		function add_cron_interval($schedules){
 			$schedules['five_seconds'] = array(
 				'interval' => 5,
-				'display'  => esc_html__('Every Five Seconds', 'breaking-news'),
+				'display'  => esc_html__('Every Five Seconds', 'text-domain'),
 			);
 			return $schedules;
 		}
@@ -82,5 +82,5 @@ if( ! class_exists('BreakingNewsCron') ){
 		}
 	}
 
-	new BreakingNewsCron();
+	new SomeClassCron();
 }

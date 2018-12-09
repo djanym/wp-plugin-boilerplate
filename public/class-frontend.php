@@ -1,20 +1,20 @@
 <?php
 defined( 'ABSPATH' ) or die();
 
-if( ! class_exists('BreakingNewsFrontend') ){
+if( ! class_exists('SomeClassFrontend') ){
 
 	/**
-	 * Returns current active breaking news post if exists. Wrapper for BreakingNewsFrontend class get_breaking_post function.
+	 * Returns current active breaking news post if exists. Wrapper for SomeClassFrontend class get_breaking_post function.
 	 */
 	function get_breaking_post(){
-		return BreakingNewsFrontend::get_breaking_post();
+		return SomeClassFrontend::get_breaking_post();
 	}
 
 	/**
-	 * Class BreakingNewsFrontend
+	 * Class SomeClassFrontend
 	 * @desc Class is responsible for displaying breaking news post.
 	 */
-	class BreakingNewsFrontend {
+	class SomeClassFrontend {
 
 		public function __construct(){
 			if( is_admin() )
@@ -22,7 +22,7 @@ if( ! class_exists('BreakingNewsFrontend') ){
 
 			add_action('wp_footer', [$this, 'css_code'], 10);
 			add_action('wp_footer', [$this, 'js_code'], 10);
-			add_shortcode('breaking_news', [$this, 'breakingnews_shortcode'] );
+			add_shortcode('breaking_news', [$this, 'SomeClass_shortcode'] );
 		}
 
 		/**
@@ -85,9 +85,9 @@ if( ! class_exists('BreakingNewsFrontend') ){
 				$post_title = get_the_title($post);
 
 			// Get custom title, text color, bg color (if were set in admin)
-			$area_title = get_option('breakingnews_area_title');
-			$text_color = sanitize_hex_color( get_option('breakingnews_text_color') );
-			$bg_color = sanitize_hex_color( get_option('breakingnews_bg_color') );
+			$area_title = get_option('SomeClass_area_title');
+			$text_color = sanitize_hex_color( get_option('SomeClass_text_color') );
+			$bg_color = sanitize_hex_color( get_option('SomeClass_bg_color') );
 
 			if( $bg_color ){
 				$bg_color_html = 'style="background-color: '.esc_attr($bg_color).'"';
@@ -117,7 +117,7 @@ if( ! class_exists('BreakingNewsFrontend') ){
 		 *
 		 * @return bool|string
 		 */
-		function breakingnews_shortcode(){
+		function SomeClass_shortcode(){
 			$post = $this->get_breaking_post();
 			if( ! $post )
 				return false;
@@ -141,7 +141,7 @@ if( ! class_exists('BreakingNewsFrontend') ){
 			if( is_single($post) )
 				return false;
 
-			if( get_option('breakingnews_autoinsert') ) :
+			if( get_option('SomeClass_autoinsert') ) :
 			?>
 			<script type="text/javascript">
 				jQuery(document).ready(function($){
@@ -184,5 +184,5 @@ if( ! class_exists('BreakingNewsFrontend') ){
 
 	}
 
-	new BreakingNewsFrontend();
+	new SomeClassFrontend();
 }

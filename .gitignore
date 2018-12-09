@@ -1,0 +1,10 @@
+node_modules
+*~
+.DS_Store
+.svn
+*.bak
+*.swp
+Thumbs.db
+.idea
+.sublime-gulp.cache
+nbproject

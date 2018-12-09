@@ -1,13 +1,13 @@
 <?php
 defined( 'ABSPATH' ) or die();
 
-if( ! class_exists('BreakingNewsMetabox') ){
+if( ! class_exists('SomeClassMetabox') ){
 
 	/**
-	 * Class BreakingNewsMetabox
+	 * Class SomeClassMetabox
 	 * @desc Class is responsible for breaking news metabox section on the post page in the admin
 	 */
-	class BreakingNewsMetabox {
+	class SomeClassMetabox {
 		public function __construct(){
 			add_action('admin_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
 			add_action('add_meta_boxes', [ $this, 'post_metabox_init'] );
@@ -35,7 +35,7 @@ if( ! class_exists('BreakingNewsMetabox') ){
 		 * Initializes breaking news post metabox via Wordpress API using add_meta_box() function
 		 */
 		public function post_metabox_init(){
-			add_meta_box('breaking_new_metabox', esc_html__('Breaking News Options', 'breaking-news'), [ $this, 'post_metabox_html'], 'post', 'normal', 'high');
+			add_meta_box('breaking_new_metabox', esc_html__('Breaking News Options', 'text-domain'), [ $this, 'post_metabox_html'], 'post', 'normal', 'high');
 		}
 
 		/**
@@ -62,18 +62,18 @@ if( ! class_exists('BreakingNewsMetabox') ){
 			<div id="post-formats-select">
 				<fieldset>
 					<p>
-						<label for="breaking_news_active"><?php esc_html_e('Make this post breaking news:', 'breaking-news'); ?></label>&nbsp;&nbsp;
+						<label for="breaking_news_active"><?php esc_html_e('Make this post breaking news:', 'text-domain'); ?></label>&nbsp;&nbsp;
 						<input type="checkbox" name="breaking_news_active" value="1" id="breaking_news_active" <?php checked($breaking_news_active, true); ?> />
 					</p>
 					<p>
-						<label for="breaking_news_custom_title"><?php esc_html_e('Custom title (leave empty to use default post title):', 'breaking-news'); ?></label>
+						<label for="breaking_news_custom_title"><?php esc_html_e('Custom title (leave empty to use default post title):', 'text-domain'); ?></label>
 						<input type="text" value="<?php echo esc_attr($breaking_news_custom_title) ?>" name="breaking_news_custom_title" id="breaking_news_custom_title" />
 					</p>
 					<p class="meta-options">
-						<label for="breaking_news_expire_active"><?php esc_html_e('Set expiration date:', 'breaking-news'); ?></label>&nbsp;&nbsp;
+						<label for="breaking_news_expire_active"><?php esc_html_e('Set expiration date:', 'text-domain'); ?></label>&nbsp;&nbsp;
 						<input type="checkbox" name="breaking_news_expire_active" value="1" id="breaking_news_expire_active" <?php checked($breaking_news_expire_active, true); ?> />
 						<input type="text" name="breaking_news_expire_date" value="<?php echo esc_attr($breaking_news_expire_date) ?>" id="breaking_news_expire_date"
-							   placeholder="<?php esc_attr_e('Click to choose date', 'breaking-news'); ?>"
+							   placeholder="<?php esc_attr_e('Click to choose date', 'text-domain'); ?>"
 							   class="datetime-picker" id="breaking_news_expire_date" style="<?php echo $breaking_news_expire_active ? '' : 'display: none;'; ?>" />
 					</p>
 				</fieldset>
@@ -110,9 +110,9 @@ if( ! class_exists('BreakingNewsMetabox') ){
 
 			// If expiration is true than checks if expire date is not passed, otherwise adds error message
 			if( $breaking_news_expire_active && strtotime($breaking_news_expire_date) < current_time('timestamp') ) {
-				$error_msg = __('Breaking news expiration date field is incorrect. Please choose a date.', 'breaking-news');
+				$error_msg = __('Breaking news expiration date field is incorrect. Please choose a date.', 'text-domain');
 				// Save temporary error message to display it after page reloading
-				set_transient("breakingnews_errors_{$post_id}_{$user_id}", $error_msg, 45);
+				set_transient("SomeClass_errors_{$post_id}_{$user_id}", $error_msg, 45);
 				// Force disable expiration due to error
 				update_post_meta( $post_id, 'breaking_news_expire_active', 0 );
 			}
@@ -135,12 +135,12 @@ if( ! class_exists('BreakingNewsMetabox') ){
 						dateFormat: 'yy-mm-dd',
 						timeFormat: 'HH:mm',
 						oneLine: true,
-						timeText: '<?php echo esc_html_x('Time', 'Time picker','breaking-news'); ?>',
-						hourText: '<?php echo esc_html_x('Hours', 'Time picker', 'breaking-news'); ?>',
-						minuteText: '<?php echo esc_html_x('Minutes', 'Time picker', 'breaking-news'); ?>',
-						secondText: '<?php echo esc_html_x('Seconds', 'Time picker', 'breaking-news'); ?>',
-						currentText: '<?php echo esc_html_x('Now', 'Time picker', 'breaking-news'); ?>',
-						closeText: '<?php echo esc_html_x('Close', 'Time picker', 'breaking-news'); ?>'
+						timeText: '<?php echo esc_html_x('Time', 'Time picker','text-domain'); ?>',
+						hourText: '<?php echo esc_html_x('Hours', 'Time picker', 'text-domain'); ?>',
+						minuteText: '<?php echo esc_html_x('Minutes', 'Time picker', 'text-domain'); ?>',
+						secondText: '<?php echo esc_html_x('Seconds', 'Time picker', 'text-domain'); ?>',
+						currentText: '<?php echo esc_html_x('Now', 'Time picker', 'text-domain'); ?>',
+						closeText: '<?php echo esc_html_x('Close', 'Time picker', 'text-domain'); ?>'
 					});
 
 					// Dynamically hide/show expiration date field
@@ -166,17 +166,17 @@ if( ! class_exists('BreakingNewsMetabox') ){
 			$error_msg = false;
 
 			if( $post_id )
-				$error_msg = get_transient( "breakingnews_errors_{$post_id}_{$user_id}");
+				$error_msg = get_transient( "SomeClass_errors_{$post_id}_{$user_id}");
 
 			if ( $error_msg ) : ?>
 				<div class="error">
 					<p><?php echo esc_html($error_msg); ?></p>
 				</div>
 				<?php
-				delete_transient("breakingnews_errors_{$post_id}_{$user_id}");
+				delete_transient("SomeClass_errors_{$post_id}_{$user_id}");
 			endif;
 		}
 	}
 
-	new BreakingNewsMetabox();
+	new SomeClassMetabox();
 }

@@ -1,13 +1,13 @@
 <?php
 defined( 'ABSPATH' ) or die();
 
-if( ! class_exists('BreakingNewsOptionsPage') ){
+if( ! class_exists('SomeClassOptionsPage') ){
 
 	/**
-	 * Class BreakingNewsOptionsPage
+	 * Class SomeClassOptionsPage
 	 * @desc Class is responsible for a settings page in the admin to configure some options for the plugin
 	 */
-	class BreakingNewsOptionsPage {
+	class SomeClassOptionsPage {
 
 		public function __construct(){
 			add_action('admin_menu', [ $this, 'options_page_init' ]);
@@ -29,7 +29,7 @@ if( ! class_exists('BreakingNewsOptionsPage') ){
 		 * Adds plugin option page & menu item in the backend
 		 */
 		public function options_page_init(){
-			add_options_page(__('Breaking News options', 'breaking-news'), __('Breaking News', 'breaking-news'), 'manage_options', 'breakingnews', [ $this, 'options_page_content']);
+			add_options_page(__('Breaking News options', 'text-domain'), __('Breaking News', 'text-domain'), 'manage_options', 'breakingnews', [ $this, 'options_page_content']);
 		}
 
 		/**
@@ -37,7 +37,7 @@ if( ! class_exists('BreakingNewsOptionsPage') ){
 		 */
 		public function options_page_content(){ ?>
 			<div class="wrap">
-				<h1><?php esc_html_e('Breaking News options', 'breaking-news'); ?></h1>
+				<h1><?php esc_html_e('Breaking News options', 'text-domain'); ?></h1>
 				<form method="POST" action="options.php">
 					<?php
 					settings_fields('breakingnews');
@@ -47,7 +47,7 @@ if( ! class_exists('BreakingNewsOptionsPage') ){
 				</form>
 			</div>
 			<div class="wrap"> <!-- current breaking news post section -->
-				<h1><?php esc_html_e('Current Breaking News post', 'breaking-news'); ?></h1>
+				<h1><?php esc_html_e('Current Breaking News post', 'text-domain'); ?></h1>
 				<?php
 				$breaking_post = get_breaking_post();
 				if( $breaking_post ) :
@@ -60,7 +60,7 @@ if( ! class_exists('BreakingNewsOptionsPage') ){
 						<tr>
 							<th scope="row"><?php _e('Post title'); ?></th>
 							<td><?php echo esc_html( get_the_title($breaking_post) ); ?>
-								<a href="<?php echo esc_url( get_edit_post_link($breaking_post) ); ?>"><?php _e('Edit post', 'breaking-news'); ?></a>
+								<a href="<?php echo esc_url( get_edit_post_link($breaking_post) ); ?>"><?php _e('Edit post', 'text-domain'); ?></a>
 							</td>
 						</tr>
 
@@ -81,7 +81,7 @@ if( ! class_exists('BreakingNewsOptionsPage') ){
 						</tbody>
 					</table>
 				<?php else : ?>
-					<p><?php esc_html_e('There is no active breaking news post', 'breaking-news'); ?></p>
+					<p><?php esc_html_e('There is no active breaking news post', 'text-domain'); ?></p>
 				<?php endif; ?>
 			</div>  <!-- end of current breaking news post section --><?php
 		}
@@ -94,30 +94,30 @@ if( ! class_exists('BreakingNewsOptionsPage') ){
 
 			$fields = array(
 				array(
-					'label'   => esc_html__('Breaking News area title', 'breaking-news'),
+					'label'   => esc_html__('Breaking News area title', 'text-domain'),
 					'id'      => 'breakingnews_area_title',
 					'type'    => 'text',
 					'section' => 'breakingnews_general',
-					'desc'    => esc_html__('e.g. "Breaking news"', 'breaking-news'),
+					'desc'    => esc_html__('e.g. "Breaking news"', 'text-domain'),
 				),
 				array(
-					'label'   => esc_html__('Title text color', 'breaking-news'),
+					'label'   => esc_html__('Title text color', 'text-domain'),
 					'id'      => 'breakingnews_text_color',
 					'type'    => 'color',
 					'section' => 'breakingnews_general',
 				),
 				array(
-					'label'   => esc_html__('Text background color', 'breaking-news'),
+					'label'   => esc_html__('Text background color', 'text-domain'),
 					'id'      => 'breakingnews_bg_color',
 					'type'    => 'color',
 					'section' => 'breakingnews_general',
 				),
 				array(
-					'label'   => esc_html__('Automatically insert breaking news container', 'breaking-news'),
+					'label'   => esc_html__('Automatically insert breaking news container', 'text-domain'),
 					'id'      => 'breakingnews_autoinsert',
 					'type'    => 'checkbox',
 					'section' => 'breakingnews_general',
-					'desc'    => esc_html__('If there is a <header> tag in the theme template, then it will be automatically inserted at the bottom of this tag. If it\'s not working or you want it in another place then you can uncheck this option and manually insert this code into the template file: <?php echo do_shortcode(\'[breaking_news]\'); ?>', 'breaking-news'),
+					'desc'    => esc_html__('If there is a <header> tag in the theme template, then it will be automatically inserted at the bottom of this tag. If it\'s not working or you want it in another place then you can uncheck this option and manually insert this code into the template file: <?php echo do_shortcode(\'[breaking_news]\'); ?>', 'text-domain'),
 				)
 			);
 
@@ -177,7 +177,7 @@ if( ! class_exists('BreakingNewsOptionsPage') ){
 		 * Adds default options value on plugin activation
 		 */
 		public static function activate_plugin(){
-			add_option('breakingnews_area_title', __('Breaking news', 'breaking-news'));
+			add_option('breakingnews_area_title', __('Breaking news', 'text-domain'));
 			add_option('breakingnews_text_color', '#F0F0F0');
 			add_option('breakingnews_bg_color', '#333333');
 			add_option('breakingnews_autoinsert', '1');
@@ -185,5 +185,5 @@ if( ! class_exists('BreakingNewsOptionsPage') ){
 
 	}
 
-	new BreakingNewsOptionsPage();
+	new SomeClassOptionsPage();
 }
